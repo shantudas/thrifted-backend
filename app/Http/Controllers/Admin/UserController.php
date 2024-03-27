@@ -9,9 +9,21 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return UserResource::collection(User::paginate(10));
+        $searchQuery = $request->query('query'); // Get search query parameter
+
+        $users = User::query(); // Start user query builder
+
+        if ($searchQuery) {
+            $users->where('name', 'like', "%{$searchQuery}%")
+                ->orWhere('email', 'like', "%{$searchQuery}%"); // Filter by name or email
+        }
+
+        $users = $users->paginate(10); // Paginate results with 10 items per page
+
+        return UserResource::collection($users); // Return collection of UserResource instances (if applicable)
+        
     }
 
     public function store()

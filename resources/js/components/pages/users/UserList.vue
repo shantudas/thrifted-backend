@@ -2,17 +2,30 @@
 import axios from 'axios';
 import {ref, onMounted, reactive, watch} from 'vue';
 import { Bootstrap4Pagination } from 'laravel-vue-pagination';
+import { debounce } from 'lodash';
 
 const users = ref({'data': []});
+const searchQuery = ref(null);
+
 const getUsers = (page=1) => {
-    axios.get(`/api/users?page=${page}`, {})
+    axios.get(`/api/users?page=${page}`, {
+        params: {
+            query: searchQuery.value
+        }
+    })
         .then((response) => {
             users.value = response.data;
         })
 }
+
 onMounted(() => {
     getUsers();
 });
+
+watch(searchQuery, debounce(() => {
+    getUsers();
+}, 300));
+
 </script>
 
 <template>
@@ -35,6 +48,16 @@ onMounted(() => {
 
     <div class="content">
         <div class="container-fluid">
+            <div class="d-flex justify-content-between">
+                <button @click="addUser" type="button" class="mb-2 btn btn-primary">
+                    <i class="fa fa-plus-circle mr-1"></i>
+                    Add New User
+                </button>
+                <div>
+                    <input type="text" v-model="searchQuery" class="form-control" placeholder="Search..." />
+                </div>
+            </div>
+
             <div class="card">
                 <div class="card-body">
                     <table class="table table-bordered">
