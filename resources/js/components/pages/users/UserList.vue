@@ -1,13 +1,12 @@
 <script setup>
 import axios from 'axios';
 import {ref, onMounted, reactive, watch} from 'vue';
-import UserListItem from "./UserListItem.vue";
 
 const users = ref({'data': []});
 const getUsers = () => {
     axios.get(`/api/users`, {})
         .then((response) => {
-            users.value = response;
+            users.value = response.data;
         })
 }
 onMounted(() => {

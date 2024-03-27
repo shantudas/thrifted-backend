@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -10,10 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-
-        $users=User::all();
-
-        return $users;
+        return UserResource::collection(User::paginate(10));
     }
 
     public function store()
