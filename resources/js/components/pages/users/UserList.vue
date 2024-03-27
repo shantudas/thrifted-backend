@@ -1,10 +1,11 @@
 <script setup>
 import axios from 'axios';
 import {ref, onMounted, reactive, watch} from 'vue';
+import { Bootstrap4Pagination } from 'laravel-vue-pagination';
 
 const users = ref({'data': []});
-const getUsers = () => {
-    axios.get(`/api/users`, {})
+const getUsers = (page=1) => {
+    axios.get(`/api/users?page=${page}`, {})
         .then((response) => {
             users.value = response.data;
         })
@@ -59,8 +60,13 @@ onMounted(() => {
                         </tr>
                         </tbody>
                     </table>
+
                 </div>
             </div>
+            <Bootstrap4Pagination
+                :data="users"
+                @pagination-change-page="getUsers"
+            />
         </div>
     </div>
 </template>
