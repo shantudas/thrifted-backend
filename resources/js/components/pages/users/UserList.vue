@@ -1,13 +1,14 @@
 <script setup>
 import axios from 'axios';
 import {ref, onMounted, reactive, watch} from 'vue';
-import { Bootstrap4Pagination } from 'laravel-vue-pagination';
-import { debounce } from 'lodash';
+import {Bootstrap4Pagination} from 'laravel-vue-pagination';
+import {debounce} from 'lodash';
+import {useRouter} from 'vue-router';
 
 const users = ref({'data': []});
 const searchQuery = ref(null);
 
-const getUsers = (page=1) => {
+const getUsers = (page = 1) => {
     axios.get(`/api/users?page=${page}`, {
         params: {
             query: searchQuery.value
@@ -25,6 +26,13 @@ onMounted(() => {
 watch(searchQuery, debounce(() => {
     getUsers();
 }, 300));
+
+
+const router = useRouter();
+
+const navigateToCreate = () => {
+    router.push('/admin/users/create'); // Route to user creation
+};
 
 </script>
 
@@ -49,12 +57,12 @@ watch(searchQuery, debounce(() => {
     <div class="content">
         <div class="container-fluid">
             <div class="d-flex justify-content-between">
-                <button @click="addUser" type="button" class="mb-2 btn btn-primary">
+                <button @click="navigateToCreate" type="button" class="mb-2 btn btn-primary">
                     <i class="fa fa-plus-circle mr-1"></i>
                     Add New User
                 </button>
                 <div>
-                    <input type="text" v-model="searchQuery" class="form-control" placeholder="Search..." />
+                    <input type="text" v-model="searchQuery" class="form-control" placeholder="Search..."/>
                 </div>
             </div>
 
@@ -92,6 +100,7 @@ watch(searchQuery, debounce(() => {
             />
         </div>
     </div>
+
 </template>
 
 <style scoped>

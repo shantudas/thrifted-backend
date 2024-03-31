@@ -23,7 +23,7 @@ class UserController extends Controller
         $users = $users->paginate(10); // Paginate results with 10 items per page
 
         return UserResource::collection($users); // Return collection of UserResource instances (if applicable)
-        
+
     }
 
     public function store()
