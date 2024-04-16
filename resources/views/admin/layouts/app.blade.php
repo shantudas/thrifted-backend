@@ -211,6 +211,39 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item has-treeview"> <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Categories
+                                <i class="fas fa-angle-left right"></i> </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link class="nav-link" active-class="active" to="/admin/categories/list">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>
+                                        Category List
+                                    </p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link class="nav-link" active-class="active" to="/admin/child-categories/list">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>
+                                        Child Category List
+                                    </p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link class="nav-link" active-class="active" to="/admin/parent-categories/list">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>
+                                        Parent Category List
+                                    </p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
 

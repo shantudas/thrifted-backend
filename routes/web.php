@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ChildCategoryController;
+use App\Http\Controllers\Admin\ParentCategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApplicationController;
 use Illuminate\Support\Facades\Route;
@@ -20,8 +23,10 @@ Route::get('/', function () {
 });
 
 
-Route::get('/api/users', [UserController::class, 'index']);
-Route::post('/api/users', [UserController::class, 'store']);
+Route::resource('/api/users', UserController::class);
+Route::resource('/api/categories', CategoryController::class);
+Route::resource('/api/child-categories', ChildCategoryController::class);
+Route::resource('/api/parent-categories', ParentCategoryController::class);
 
 
 Route::get('{view}', ApplicationController::class)->where('view', '(.*)');
