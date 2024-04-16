@@ -6,24 +6,31 @@ import {ref} from "vue";
 const schema = yup.object({
     name: yup.string().min(5).required(),
     email: yup.string().email().required(),
+    password: yup.string().password().required(),
 });
 
 const myForm = ref(null);
 
-function handleSubmit() {
+async function handleSubmit() {
     // Access form data using myForm.value
-    const values = myForm.value; // Get form data from ref
+    // const values = myForm.value; // Get form data from ref
+    const values = myForm.value.form.value;
 
-    if (myForm.value.$error) { // Check for validation errors
+    // console.log(values);
+
+    if (myForm.value.$error) {
         console.error('Form has validation errors:', myForm.value.$error);
         return;
     }
 
-    onSubmit(values); // Call onSubmit with form data
-}
-
-function onSubmit(values) {
-    alert(JSON.stringify(values, null, 2));
+    try {
+        const response = await axios.post('/api/users', values); // Replace with your API endpoint
+        console.log('User created:', response.data);
+        // Handle successful submission (e.g., clear form, show success message)
+    } catch (error) {
+        console.error('Error creating user:', error.response.data);
+        // Handle error response (e.g., display error messages)
+    }
 }
 
 </script>
@@ -53,12 +60,17 @@ function onSubmit(values) {
                         <div class="form-group">
                             <label for="name">Name</label>
                             <Field name="name" type="text" class="form-control" id="name" placeholder="Enter name"/>
-                            <ErrorMessage name="name"/>
+                            <ErrorMessage name="name" />
                         </div>
                         <div class="form-group">
                             <label for="email">Email address</label>
                             <Field name="email" type="email" class="form-control" id="email" placeholder="Enter email"/>
-                            <ErrorMessage name="email"/>
+                            <ErrorMessage name="email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <Field name="password" type="password" class="form-control" id="password" placeholder="Enter password" />
+                            <ErrorMessage name="password" />
                         </div>
                     </Form>
                 </div>
