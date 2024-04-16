@@ -1,5 +1,6 @@
 import Dashboard from "./components/pages/Dashboard.vue";
-import Users from "./components/pages/UserList.vue";
+import UserList from "./components/pages/users/UserList.vue";
+import UserCreate from "./components/pages/users/UserCreate.vue";
 
 export default [
     {
@@ -7,8 +8,13 @@ export default [
         name: 'admin.dashboard',
         component: Dashboard
     }, {
-        path: '/admin/users',
-        name: 'admin.users',
-        component: Users
-    }
+        path: '/admin/users/list',
+        name: 'admin.users.list',
+        component: UserList
+    },
+    {
+        path: '/admin/users/create',
+        name: 'admin.users.create',
+        component: UserCreate
+    },
 ]

@@ -185,13 +185,31 @@
                             </p>
                         </router-link>
                     </li>
-                    <li class="nav-item">
-                        <router-link class="nav-link" active-class="active" to="/admin/users">
+
+                    <li class="nav-item has-treeview"> <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
                             <p>
                                 Users
-                            </p>
-                        </router-link>
+                                <i class="fas fa-angle-left right"></i> </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link class="nav-link" active-class="active" to="/admin/users/list">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>
+                                        User List
+                                    </p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link class="nav-link" active-class="active" to="/admin/users/create">
+                                    <i class="nav-icon fas fa-plus"></i>
+                                    <p>
+                                        New User
+                                    </p>
+                                </router-link>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </nav>
