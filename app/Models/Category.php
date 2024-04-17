@@ -9,6 +9,15 @@ class Category extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+    ];
+
     public function childCategory()
     {
         return $this->belongsTo(ChildCategory::class);

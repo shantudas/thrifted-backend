@@ -43,7 +43,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3',
+        ]);
+
+        Category::create($request->all()); // Create category using validated data
+
+        return response()->json([
+            'message' => 'Category created successfully!',
+        ]);
     }
 
     /**
